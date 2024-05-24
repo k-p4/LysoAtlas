@@ -1,5 +1,5 @@
 # Define UI for data upload app ----
-VERSION <- "v0.37"
+VERSION <- "v0.39"
 DEBUG <- F
 ENABLE_PEPTIDE_ANALYSIS <- T
 if (ENABLE_PEPTIDE_ANALYSIS) {
@@ -11,8 +11,8 @@ if (ENABLE_PEPTIDE_ANALYSIS) {
 
 ui <- function(request){shinyUI(
   dashboardPage(
-    skin = "blue",
-    dashboardHeader(title = "FragPipe-Analyst"),
+    skin = "black",
+    dashboardHeader(title = "BCM LysoProteomics-Analyst"),
     # disable = TRUE),# Disable title bar
     dashboardSidebar(
       sidebarMenu(
@@ -31,7 +31,7 @@ ui <- function(request){shinyUI(
                                accept=c('text/tsv',
                                         'text/tab-separated-values,text/plain',
                                         '.tsv')),
-                     fileInput('lfq_manifest', 'Upload sample annotation',
+                     fileInput('lfq_manifest', 'Upload experimental design template/annotation',
                                accept=c('text/tsv',
                                         'text/tab-separated-values,text/plain',
                                         '.tsv')),
@@ -51,7 +51,7 @@ ui <- function(request){shinyUI(
                                accept=c('text/tsv',
                                         'text/tab-separated-values,text/plain',
                                         '.tsv')),
-                     fileInput('tmt_annot', 'Upload sample annotation',
+                     fileInput('tmt_annot', 'Upload experimental design template/annotation',
                                accept=c('text/tsv',
                                         'text/tab-separated-values,text/plain',
                                         '.tsv'))
@@ -62,7 +62,7 @@ ui <- function(request){shinyUI(
                                accept=c('text/tsv',
                                         'text/tab-separated-values,text/plain',
                                         '.tsv')),
-                     fileInput('dia_manifest', 'Upload sample annotation',
+                     fileInput('dia_manifest', 'Upload experimental design template/annotation',
                                accept=c('text/tsv',
                                         'text/tab-separated-values,text/plain',
                                         '.tsv'))),
@@ -72,7 +72,7 @@ ui <- function(request){shinyUI(
                                accept=c('text/tsv',
                                         'text/tab-separated-values,text/plain',
                                         '.tsv')),
-                     fileInput('lfq_pept_annot', 'Upload sample annotation',
+                     fileInput('lfq_pept_annot', 'Upload experimental design template/annotation',
                                accept=c('text/tsv',
                                         'text/tab-separated-values,text/plain',
                                         '.tsv')),
@@ -89,7 +89,7 @@ ui <- function(request){shinyUI(
                                accept=c('text/tsv',
                                         'text/tab-separated-values,text/plain',
                                         '.tsv')),
-                     fileInput('tmt_pept_annot', 'Upload sample annotation',
+                     fileInput('tmt_pept_annot', 'Upload experimental design template/annotation',
                                accept=c('text/tsv',
                                         'text/tab-separated-values,text/plain',
                                         '.tsv'))
@@ -100,7 +100,7 @@ ui <- function(request){shinyUI(
                                accept=c('text/tsv',
                                         'text/tab-separated-values,text/plain',
                                         '.tsv')),
-                     fileInput('dia_pept_annot', 'Upload sample annotation',
+                     fileInput('dia_pept_annot', 'Upload experimental design template/annotation',
                                accept=c('text/tsv',
                                         'text/tab-separated-values,text/plain',
                                         '.tsv'))
@@ -168,7 +168,7 @@ ui <- function(request){shinyUI(
       useShinyjs(), #imp to use shinyjs functions
 
       # comment out when testing on local
-      # tags$head(includeHTML(("google_analytics.html"))),
+      #tags$head(includeHTML(("google_analytics.html"))),
      
       tags$head(
         tags$link(rel = "stylesheet", type = "text/css", href = "./css/custom.css")
@@ -194,14 +194,12 @@ ui <- function(request){shinyUI(
                     width = 12,
                     solidHeader = TRUE,
                     status = "primary",
-                    h3("FragPipe-Analyst"),
-                    p(HTML(paste0("FragPipe-Analyst is an easy-to-use, interactive web application developed to perform 
-                      differential expression analysis with “one click” and to visualize quantitative proteomic datasets analyzed using ",
-                                  a(href="https://fragpipe.nesvilab.org/", target="_blank", "FragPipe"), " computational platform.",
-                      " It is compatible with the LFQ-MBR, TMT, and DIA quantification workflows in FragPipe.",
-                      " FragPipe-Analyst is based on the original ",
-                      a(href="https://bioinformatics.erc.monash.edu/apps/LFQ-Analyst/", target="_blank", "LFQ-Analyst"),
-                      " code."))),
+                    h3("BCM LysoProteomics-Analyst"),
+                    p(HTML(paste0("BCM LysoProteomics-Analyst is an interactive web app to explore 
+                      differential expression analysis with “one click” and to visualize quantitative Lysosomal proteomic datasets analyzed using DIA-NN and Fragpipe.",
+                      " BCM LysoProteomics-Analyst is built on the Monash ",
+                      a(href="https://bioinformatics.erc.monash.edu/apps/LFQ-Analyst/", target="_blank", "Analyst Suites"),
+                      " SDK."))),
                     br(),
                     fluidRow(
                       column(width = 4,
@@ -236,18 +234,12 @@ ui <- function(request){shinyUI(
                       column(width = 4,
                         h4("Sidebar tabs"),
                         tags$ul(
-                          tags$li(tags$b("Analysis: "),"perform your own analysis"),
-                          tags$li(tags$b("Documentation: "), "Learn more about how to use FragPipe-Analyst")
+                          tags$li(tags$b("Analysis: "),"upload your datasets")
                           # tags$li(tags$b("Demo: "),"familiarise yourself with FragPipe-Analyst by browsing through pre-analysed results"),
                         )
                       ),
                       column(width = 8,
-                        h4("Support"),
-                        tags$ul(
-                          tags$li(tags$b("Questions/Suggestions/Bug reports: "), "Ask us in ", tags$a(href="https://github.com/Nesvilab/FragPipe-Analyst", target="_blank", "our GitHub forum"), "."),
-                          tags$li(tags$b("Documentation/Tutorials: "), "Learn more ", tags$a(href="https://github.com/MonashProteomics/FragPipe-Analyst/tree/main/docs", target="_blank", "here"), "."),
-                          tags$li(tags$b("Servers:"), "Our production (stable) server is at ", tags$a(href="https://fragpipe-analyst.org/", target="_blank", "https://fragpipe-analyst.org/"), "but we also provide our latest dev server ", tags$a(href="http://fragpipe-analyst.nesvilab.org/", target="_blank", "http://fragpipe-analyst.nesvilab.org/"), "with most recent updates and bug fixes."),
-                        )
+
                       )
                     )
                   ) # box 1 closed
@@ -258,49 +250,9 @@ ui <- function(request){shinyUI(
                     fluidPage(
                       box(
                         title = "Getting Started",
-                        h3(tags$b(span("Quick Start", style="text-decoration:underline"))),
+                        h3(tags$b(span("Running Datasets", style="text-decoration:underline"))),
                         tags$ul(
-                          tags$li("Choose the type of experiment you performed. Currently, DDA-based LFQ (MS1-based or spectral count), TMT, and DIA are supported."),
-                          tags$li("For DDA LFQ:",
-                                  tags$ul(
-                                    tags$li("Upload ", tags$b("combined_protein.tsv "), "generated by ",
-                                            tags$a(href="https://github.com/Nesvilab/IonQuant", target="_blank", "IonQuant"),
-                                            " in ", tags$a(href="https://fragpipe.nesvilab.org/", target="_blank", "FragPipe")),
-                                    tags$li("Upload ", tags$b("experiment_annotation.tsv"), "file. Edit the template file generated by FragPipe;",
-                                            " Check ", tags$a(href="https://github.com/MonashProteomics/FragPipe-Analyst/tree/main/docs", target="_blank", "here"),
-                                            " for details."),
-                                    tags$li("Select quantification method (MS1-based Intensity or MaxLFQ Intensity, or spectral counts).")
-                                  )
-                          ),
-                          tags$li("For TMT:",
-                                  tags$ul(
-                                    tags$li("Upload gene-level report", tags$b("[abundance/ratio]_gene_[normalization].tsv"), "or protein-level report",
-                                            tags$b("[abundance/ratio]_protein_[normalization].tsv"), "generated by ",
-                                            tags$a(href="https://tmt-integrator.nesvilab.org/", target="_blank", "TMT-Integrator (TMT-I)"), "in ",
-                                            tags$a(href="https://fragpipe.nesvilab.org/", target="_blank", "FragPipe"),
-                                            "(we recommend ", tags$b("abundance_gene_MD.tsv"), "file). If peptide option is enabled in the server, TMT-I peptide report could also be used alternatively."),
-                                    tags$li("Upload", tags$b("experiment_annotation.tsv"), "file. Edit the template file generated by FragPipe;",
-                                            " Check ", tags$a(href="https://github.com/MonashProteomics/FragPipe-Analyst/tree/main/docs", target="_blank", "here"),
-                                            " for details.")
-                                  )
-                          ),
-                          tags$li("For DIA:",
-                                  tags$ul(
-                                    tags$li("Upload protein group (PG) matrix (", tags$b("diann-output.pg_matrix.tsv"), ") generated by ",
-                                            tags$a(href="https://github.com/vdemichev/DiaNN", target="_blank", "DIA-NN"),
-                                            " in ", tags$a(href="https://fragpipe.nesvilab.org/", target="_blank", "FragPipe")),
-                                    tags$li("Upload ", tags$b("experiment_annotation.tsv"), "file.",
-                                            "Check ", tags$a(href="https://github.com/MonashProteomics/FragPipe-Analyst/tree/main/docs", target="_blank", "here"),
-                                            " for details.")
-                                  )
-                          ),
-                          tags$li(tags$b("Optional: "),
-                                  "Adjust the missing value filter, normalization, missing value imputation, p-value cut-off, the log2 fold change cut-off, FDR correction method",
-                                  "in the", tags$b("Advanced Options"),
-                                  '. Note that the missing value imputation method is set by default to “Perseus-like” for DDA LFQ and DIA, and to “No imputation” for TMT.'),
-                          tags$li("Press ", tags$b("'Run' ")),
-                          tags$li(tags$b("Hint: "), " Check the ", tags$b("Documentation ")," tab for a detailed explanation of inputs, 
-                                advanced options and outputs"),
+                          tags$li("Choose based on MS acquisition type."),
                         ),
                         br(),
                         # HTML('<center><img src="./LFQ_analyst.svg" width="500px"></center>'),
@@ -700,27 +652,10 @@ ui <- function(request){shinyUI(
               fluidRow( 
                box(
                    title = "Documentation",
-                   h3("Need help?"),
+                   h3("Documents and Vigenettes for analysis"),
                    tags$ul(
-                     tags$li("Read our documentation and tutorial ", a(href = 'https://github.com/MonashProteomics/FragPipe-Analyst/tree/main/docs', target='_blank', tags$b('here')), "."), 
-                     tags$li("Report issues and ask questions ", a(href = 'https://github.com/Nesvilab/FragPipe-Analyst', target='_blank', tags$b('here')), "."), 
-                     tags$li("FragPipe-Analyst is open-source! You are more than welcome to ",a(href = 'https://github.com/MonashProteomics/FragPipe-Analyst', target='_blank', tags$b('contribute')), "."),
-                     tags$li('Learn more about our FragPipe', a(href = 'https://fragpipe.nesvilab.org/', target='_blank', tags$b('here')), "."),
-                     tags$li("The user manual of original LFQ-Analyst can be accessed",
-                             a(href = 'https://bioinformatics.erc.monash.edu/apps/LFQ-Analyst/LFQ-Analyst_manual.pdf', target='_blank', tags$b("here")), ".")
-                   ),
-
-                   h4("Contact Us"),
-                   p("For any feedback or question regarding FragPipe-Analyst, please contact the 
-                     Proteomics & Integrative Bioinformatics Lab (P.I. Alexey Nesvizhskii; University of Michigan):"),
-                   tags$ul(
-                     tags$li("Professor Alexey Nesvizhskii: ", a(href="mailto: nesvi@med.umich.edu", target='_blank', "nesvi@med.umich.edu"))),
-
-                   h4("News and Updates"),
-                   tags$ul(
-                     tags$li("12-02-2022: FragPipe-Analyst is first released for beta testing."),
-                     tags$li("07-13-2022: FragPipe-Analyst is first created.")
-                    ),
+                     tags$li("Documentation coming soon!") 
+                     ),
                    width = 12,
                    solidHeader = TRUE,
                    status = "primary"
@@ -912,7 +847,7 @@ ui <- function(request){shinyUI(
         fluidRow(
           tags$div(
             tags$footer(
-              tags$p("Proteomics & Integrative Bioinformatics Lab at the University of Michigan (P.I. Alexey Nesvizhskii) and the Monash Proteomics & Metabolomics Facility, Monash University (P.I. Ralf Schittenhelm)."),
+              tags$p(" "),
               align = "left",
               style = "margin-left: 20px;")
               # style = "position:absolute;

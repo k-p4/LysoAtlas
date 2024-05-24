@@ -1,8 +1,6 @@
 # Advanced Usage
 
 ## How to run GSEA (gene set enrichment analysis) based on result of FragPipe-Analyst?
-(contributed by Quinn J Mattison, quinn-mattison@uiowa.edu)
-
 Here we will continue our TMT tutorial
 
 - Download the DE result (a sample file is available [here](TMT-tutorial/Results.csv))
@@ -44,5 +42,4 @@ dotplot(gsea_result, x="NES", showCategory=10)
 Now you should be able to get a dotplot which is similar to Figure 4B of the previous [CPTAC ccRCC study](https://www.sciencedirect.com/science/article/pii/S0092867419311237).
 
 ![GSEA](TMT-tutorial/GSEA_result.png)
-
 

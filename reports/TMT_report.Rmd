@@ -1,5 +1,5 @@
 ---
-title: "FragPipe-Analyst report"
+title: "BCM LysoProteomics-Analyst report"
 date: "`r format(Sys.time(), '%d %B, %Y')`"
 params:
   data: NA
@@ -30,9 +30,6 @@ knitr::opts_chunk$set(opts.label="kill_prefix") # Remove line number and Comment
 ```
 
 ## Method details
-
-The raw data files were analyzed using TMT workflows in FragPipe to obtain protein quantification. 
-
 Statistical analysis was performed using an in-house generated R script based on the ProteinGroup.txt file. Protein-wise linear models combined with empirical Bayes statistics were used for the differential expression analyses. The _limma_ package from R Bioconductor was used to generate a list of differentially expressed proteins for each pair-wise comparison. A cutoff of the _adjusted p-value_ of 0.05 (Benjamini-Hochberg method) along with a |log2 fold change| of 1 has been applied to determine significantly regulated proteins in each pairwise comparison.
 
 
